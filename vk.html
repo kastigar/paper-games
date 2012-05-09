@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>PaperRacing - PaperGames</title>
+
+<script src="//vk.com/js/api/xd_connection.js?2"></script>
+<script src="kinetic-v3.9.3.min.js"></script>
+<script src="underscore.js"></script>
+<script src="kinetic-ext.js"></script>
+
+<script type="text/coffeescript" src="sheet.coffee"></script>
+<script type="text/coffeescript" src="race-server.coffee"></script>
+<script type="text/coffeescript" src="race-menu.coffee"></script>
+<script type="text/coffeescript" src="single-race.coffee"></script>
+
+<script type="text/coffeescript" src="game.coffee"></script>
+<script type="text/coffeescript" src="race.coffee"></script>
+<script type="text/coffeescript" src="track.coffee"></script>
+
+<script type="text/javascript" src="coffee-script.js"></script>
+
+<script type="text/coffeescript">
+  VK.init ->
+    paperSheet = new PaperSheet
+      container: "container"
+
+    new RaceServerActor
+      player:
+        name: "VK-player"
+      onReady: (server) ->
+        menu = new RaceMenu paperSheet, server
+        menu.show()
+</script>
+
+<div id="container"></div>

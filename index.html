@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PaperRacing - PaperGames</title>
+  <script type="text/javascript" src="kinetic-v3.9.3.min.js"></script>
+  <script type="text/javascript" src="underscore.js"></script>
+  <script type="text/javascript" src="kinetic-ext.js"></script>
+
+  <script type="text/coffeescript" src="sheet.coffee"></script>
+  <script type="text/coffeescript" src="race-server.coffee"></script>
+  <script type="text/coffeescript" src="race-menu.coffee"></script>
+  <script type="text/coffeescript" src="single-race.coffee"></script>
+
+  <script type="text/coffeescript" src="game.coffee"></script>
+  <script type="text/coffeescript" src="race.coffee"></script>
+  <script type="text/coffeescript" src="track.coffee"></script>
+
+  <script type="text/javascript" src="coffee-script.js"></script>
+
+<!--
+  <script type="text/coffeescript">
+    fakeControllers = new FakeControllers
+    @controller1 = fakeControllers.forPlayer1
+    @controller2 = fakeControllers.forPlayer2
+
+  </script>
+-->
+
+<!--
+  <script type="text/coffeescript">
+    stage = new Kinetic.Stage
+      container: "container1"
+      width: 600
+      height: 450
+
+    paper = new PaperGames.Paper
+      cellSize: 15
+      image: "./bg.png"
+
+    track = new PaperTrack
+
+    game = new PaperRace stage, paper, track, @controller1
+    game.run()
+
+  </script>
+-->
+
+  <script type="text/coffeescript">
+    $id = (id)-> document.getElementById(id)
+
+    $id("StartButton").onclick = ->
+      name = $id("PlayerName").value
+
+      if name.length == 0
+        $id("ErrorBox").innerHTML = "Type your name please"
+        return
+
+      $id("NameForm").parentElement.removeChild($id("NameForm"))
+
+      paperSheet = new PaperSheet
+        container: "container"
+
+      new RaceServerActor
+        player:
+          name: name
+        onReady: (server) ->
+          menu = new RaceMenu paperSheet, server
+          menu.show()
+  </script>
+
+</head>
+
+<body>
+
+<div id="NameForm">
+  <input id="PlayerName" value="Name" placeholder="Player Name" />
+  <button id="StartButton">Start</button>
+  <div id="ErrorBox" style="color:red"></div>
+</div>
+<div id="container"></div>
+
+</body>
+
+</html>
