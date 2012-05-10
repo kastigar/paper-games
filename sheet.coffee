@@ -43,7 +43,7 @@ class window.Size
 
 class window.PaperSheet extends Kinetic.Stage
   constructor: (config) ->
-    config.width = 600
+    config.width = 645
     config.height = 450
     _super.call this, config
     
