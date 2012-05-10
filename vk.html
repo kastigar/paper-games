@@ -17,21 +17,15 @@
 
 <script type="text/coffeescript">
   VK.init ->
-    window.URLParams = do ->
-      p = []
-      r = /([^&=]+)=?([^&]*)/g
-      d = (s) -> decodeURIComponent(s.replace(/\+/g, " "))
-      q = window.location.search.substring(1)
-
-      p[d(m[1])] = d(m[2]) while m = r.exec(q)
-      p
+    VK.loadParams(document.location.href)
+    apiResult = fastXDM.getJSON().parse(VK.params.api_result)
 
     paperSheet = new PaperSheet
       container: "container"
 
     new RaceServerActor
       player:
-        name: URLParams.api_result.response[0].first_name
+        name: apiResult.response[0].first_name
       onReady: (server) ->
         menu = new RaceMenu paperSheet, server
         menu.show()
